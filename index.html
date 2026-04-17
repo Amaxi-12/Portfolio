@@ -1,42 +1,1287 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba de Funcionamiento</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f2f5;
-        }
-        .card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        h1 {
-            color: #2ecc71;
-        }
-        p {
-            color: #7f8c8d;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antoni Lozano – IT & Dev Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ───────────────────────────────
+   ROOT & RESET
+──────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+:root {
+  --bg:        #080B12;
+  --bg2:       #0D1120;
+  --surface:   #111827;
+  --surface2:  #1A2236;
+  --border:    rgba(255,255,255,0.06);
+  --border2:   rgba(99,210,170,0.2);
+  --accent:    #63D2AA;
+  --accent2:   #4F8EF7;
+  --accent3:   #F7A84F;
+  --text:      #E8EDF5;
+  --muted:     #6B7A99;
+  --mono:      'JetBrains Mono', monospace;
+  --sans:      'Outfit', sans-serif;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom cursor */
+.cursor {
+  position: fixed;
+  width: 12px; height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width .2s, height .2s, background .2s;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(99,210,170,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all .12s ease-out;
+}
+
+/* ───────────────────────────────
+   NAV
+──────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background: rgba(8,11,18,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color .2s;
+}
+
+.nav-links a:hover { color: var(--accent); }
+
+/* ───────────────────────────────
+   HERO
+──────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 70% 40%, rgba(99,210,170,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 20% 80%, rgba(79,142,247,0.06) 0%, transparent 70%);
+}
+
+.grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  background: rgba(99,210,170,0.08);
+  border: 1px solid rgba(99,210,170,0.2);
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 28px;
+  animation: fadeUp .6s ease both;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-name {
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  margin-bottom: 20px;
+  animation: fadeUp .7s .1s ease both;
+}
+
+.hero-name .highlight {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-role {
+  font-family: var(--mono);
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 32px;
+  animation: fadeUp .7s .2s ease both;
+}
+
+.hero-role span { color: var(--accent3); }
+
+.hero-desc {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 540px;
+  margin-bottom: 44px;
+  animation: fadeUp .7s .3s ease both;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeUp .7s .4s ease both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all .2s;
+  border: none;
+  cursor: none;
+}
+
+.btn-primary:hover {
+  background: #7DEDC0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(99,210,170,0.3);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 14px 28px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  text-decoration: none;
+  transition: all .2s;
+  cursor: none;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  animation: fadeUp .7s .6s ease both;
+}
+
+.scroll-line {
+  width: 40px;
+  height: 1px;
+  background: var(--muted);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  animation: scanline 2s infinite;
+}
+
+@keyframes scanline {
+  to { left: 100%; }
+}
+
+.hero-stats {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  animation: fadeUp .7s .5s ease both;
+}
+
+.stat {
+  text-align: right;
+}
+
+.stat-num {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+
+.stat-num span {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ───────────────────────────────
+   SECTIONS COMMON
+──────────────────────────────── */
+section {
+  padding: 100px 60px;
+}
+
+.section-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-tag::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.05;
+  margin-bottom: 60px;
+}
+
+/* ───────────────────────────────
+   ABOUT
+──────────────────────────────── */
+#about {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.about-text p {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 20px;
+}
+
+.about-text p strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.about-right {}
+
+.info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.info-row:last-child { border-bottom: none; }
+
+.info-key {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+.info-val {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.info-val.accent { color: var(--accent); }
+
+/* ───────────────────────────────
+   SKILLS
+──────────────────────────────── */
+#skills {
+  position: relative;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.skill-card:hover {
+  border-color: rgba(99,210,170,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.skill-card:hover::before { opacity: 1; }
+
+.skill-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.skill-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.stag {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 4px;
+  background: var(--surface2);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.stag.green { color: var(--accent); border-color: rgba(99,210,170,0.2); background: rgba(99,210,170,0.06); }
+.stag.blue  { color: var(--accent2); border-color: rgba(79,142,247,0.2); background: rgba(79,142,247,0.06); }
+.stag.gold  { color: var(--accent3); border-color: rgba(247,168,79,0.2); background: rgba(247,168,79,0.06); }
+
+/* ───────────────────────────────
+   EXPERIENCE
+──────────────────────────────── */
+#experience {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+}
+
+.tl-item {
+  position: relative;
+  margin-bottom: 52px;
+}
+
+.tl-item:last-child { margin-bottom: 0; }
+
+.tl-dot {
+  position: absolute;
+  left: -39px;
+  top: 6px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg2);
+  box-shadow: 0 0 12px rgba(99,210,170,0.4);
+}
+
+.tl-date {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.tl-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.tl-role {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.tl-company {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent2);
+}
+
+.tl-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.tl-bullets li {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+  padding-left: 18px;
+  position: relative;
+}
+
+.tl-bullets li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* ───────────────────────────────
+   PROJECTS
+──────────────────────────────── */
+#projects {
+  border-bottom: 1px solid var(--border);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  border-color: rgba(99,210,170,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.35);
+}
+
+.project-type {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.type-unity { background: rgba(99,210,170,0.1); color: var(--accent); border: 1px solid rgba(99,210,170,0.25); }
+.type-python { background: rgba(79,142,247,0.1); color: var(--accent2); border: 1px solid rgba(79,142,247,0.25); }
+
+.project-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+
+.project-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.project-tech {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.pt {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 3px 9px;
+  border-radius: 4px;
+}
+
+/* Featured project span 2 */
+.project-card.featured {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.project-card.featured .project-visual {
+  background: linear-gradient(135deg, rgba(99,210,170,0.1), rgba(79,142,247,0.1));
+  border-radius: 12px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  border: 1px solid var(--border2);
+}
+
+/* ───────────────────────────────
+   EDUCATION
+──────────────────────────────── */
+#education {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.edu-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  transition: all .3s;
+}
+
+.edu-card:hover {
+  border-color: rgba(99,210,170,0.2);
+  transform: translateY(-3px);
+}
+
+.edu-year {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.edu-degree {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.edu-school {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent2);
+  margin-bottom: 14px;
+}
+
+.edu-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.etag {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+/* ───────────────────────────────
+   CONTACT
+──────────────────────────────── */
+#contact {
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+#contact::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(99,210,170,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.contact-email {
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+  transition: color .2s;
+  display: inline-block;
+  margin-bottom: 48px;
+  cursor: none;
+}
+
+.contact-email:hover { color: var(--accent); }
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.clink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all .2s;
+  cursor: none;
+}
+
+.clink:hover {
+  color: var(--accent);
+  border-color: var(--accent2);
+  transform: translateY(-2px);
+}
+
+/* ───────────────────────────────
+   FOOTER
+──────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ───────────────────────────────
+   SCROLL REVEAL
+──────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ───────────────────────────────
+   SCROLLBAR
+──────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+/* ───────────────────────────────
+   RESPONSIVE
+──────────────────────────────── */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  #hero { padding: 100px 24px 60px; }
+  .hero-stats { display: none; }
+  section { padding: 70px 24px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+  .project-card.featured .project-visual { display: none; }
+  .edu-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 10px; text-align: center; }
+  .hero-scroll { left: 24px; }
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+}
+</style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>¡Hola! 👋</h1>
-        <p>Si estás viendo esto con un fondo gris y este cuadro blanco, <strong>tu página web funciona perfectamente.</strong></p>
-        <hr>
-        <p><small>Fecha de la prueba: Abril 2026</small></p>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="nav-logo">Portfolio de Antoni Lozano</div>
+  <ul class="nav-links">
+    <li><a href="#about">sobre mí</a></li>
+    <li><a href="#skills">habilidades</a></li>
+    <li><a href="#experience">experiencia</a></li>
+    <li><a href="#projects">proyectos</a></li>
+    <li><a href="#contact">contacto</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-lines"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      Disponible para trabajar
     </div>
 
+    <h1 class="hero-name">
+      Antoni<br><span class="highlight">Lozano</span>
+    </h1>
+
+    <div class="hero-role">
+      &lt; <span>Soporte IT</span> · <span>Dev Junior</span> · <span>Unity / Python / Java</span> /&gt;
+    </div>
+
+    <p class="hero-desc">
+      Técnico IT y desarrollador multiplataforma con más de 4 años de experiencia. Especializado en soporte técnico, programación en Python, Java y C# con Unity. Basado en Molins de Rei, Barcelona.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">Ver Proyectos →</a>
+      <a href="#contact" class="btn-secondary">Contactar</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num"><span>25+</span></div>
+      <div class="stat-label">clientes atendidos</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num"><span>4</span></div>
+      <div class="stat-label">años de experiencia</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num"><span>3</span></div>
+      <div class="stat-label">videojuegos creados</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num"><span>90<span style="font-size:22px">%</span></span></div>
+      <div class="stat-label">resolución mismo día</div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    desliza para explorar
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-tag">sobre mí</div>
+  <h2 class="section-title">Quién soy</h2>
+
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>Soy <strong>Antoni Lozano</strong>, técnico IT y desarrollador júnior de Molins de Rei (Barcelona). Combino habilidades técnicas en soporte de sistemas con experiencia práctica en desarrollo de software.</p>
+      <p>Durante más de <strong>4 años como autónomo</strong>, he gestionado incidencias técnicas para clientes particulares, resolviendo el 90% el mismo día. He trabajado con sistemas Windows y Linux, redes locales, VPNs y diagnóstico de hardware.</p>
+      <p>En el ámbito del desarrollo, he creado <strong>3 videojuegos con Unity y C#</strong> en un entorno profesional, y he programado herramientas de automatización en Python para resolver problemas reales.</p>
+      <p>Busco un entorno donde crecer técnicamente y aportar valor real al equipo, tanto en soporte IT como en programación.</p>
+    </div>
+
+    <div class="about-right">
+      <div class="info-card">
+        <div class="info-row">
+          <span class="info-key">UBICACIÓN</span>
+          <span class="info-val">Molins de Rei, Barcelona</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">EMAIL</span>
+          <span class="info-val accent">antoni11122003@gmail.com</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">TELÉFONO</span>
+          <span class="info-val">+34 722 530 335</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">IDIOMAS</span>
+          <span class="info-val">Catalán · Español · Inglés B2</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">ESTADO</span>
+          <span class="info-val accent">✦ Disponible</span>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:12px;">
+        <a href="CV_SoporteIT_AntoniLozano.html" download class="btn-secondary" style="flex:1; justify-content:center; font-size:12px;">↓ CV Soporte IT</a>
+        <a href="CV_ProgramadorJunior_AntoniLozano.html" download class="btn-secondary" style="flex:1; justify-content:center; font-size:12px;">↓ CV Dev Junior</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-tag">habilidades</div>
+  <h2 class="section-title">Stack Tecnológico</h2>
+
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">🖥️</div>
+      <div class="skill-card-title">Sistemas & Redes</div>
+      <div class="skill-tags">
+        <span class="stag green">Windows 10/11</span>
+        <span class="stag green">Linux</span>
+        <span class="stag green">VPN</span>
+        <span class="stag green">LAN</span>
+        <span class="stag">Routers</span>
+        <span class="stag">Hardware</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal" style="transition-delay:.1s">
+      <div class="skill-icon">🐍</div>
+      <div class="skill-card-title">Python</div>
+      <div class="skill-tags">
+        <span class="stag blue">Scripting</span>
+        <span class="stag blue">Automatización</span>
+        <span class="stag blue">Herramientas CLI</span>
+        <span class="stag">yt-dlp</span>
+        <span class="stag">Filesystem</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal" style="transition-delay:.2s">
+      <div class="skill-icon">☕</div>
+      <div class="skill-card-title">Java</div>
+      <div class="skill-tags">
+        <span class="stag gold">POO</span>
+        <span class="stag gold">DAM</span>
+        <span class="stag gold">Swing/GUI</span>
+        <span class="stag">SQL</span>
+        <span class="stag">Apps Móviles</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal" style="transition-delay:.3s">
+      <div class="skill-icon">🎮</div>
+      <div class="skill-card-title">Unity & C#</div>
+      <div class="skill-tags">
+        <span class="stag green">Unity 2D</span>
+        <span class="stag green">C#</span>
+        <span class="stag green">Física</span>
+        <span class="stag">Colisiones</span>
+        <span class="stag">Game Loop</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal" style="transition-delay:.4s">
+      <div class="skill-icon">🛠️</div>
+      <div class="skill-card-title">Soporte IT</div>
+      <div class="skill-tags">
+        <span class="stag blue">Diagnóstico HW</span>
+        <span class="stag blue">Reparación</span>
+        <span class="stag blue">Soporte remoto</span>
+        <span class="stag">Presupuestos</span>
+        <span class="stag">Atención al cliente</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal" style="transition-delay:.5s">
+      <div class="skill-icon">🗣️</div>
+      <div class="skill-card-title">Soft Skills</div>
+      <div class="skill-tags">
+        <span class="stag gold">Resolución de problemas</span>
+        <span class="stag gold">Trabajo en equipo</span>
+        <span class="stag gold">Proactividad</span>
+        <span class="stag">Adaptabilidad</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-tag">experiencia</div>
+  <h2 class="section-title">Trayectoria Profesional</h2>
+
+  <div class="timeline">
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Ene 2024 – Jul 2024</div>
+      <div class="tl-header">
+        <div class="tl-role">Programador de Videojuegos</div>
+        <div class="tl-company">Virtualdoing · Barcelona · Prácticas</div>
+      </div>
+      <ul class="tl-bullets">
+        <li>Desarrollé <strong>3 videojuegos 2D en Unity (C#)</strong> —Clicker, Flappy Bird y Space Invaders— en colaboración con un diseñador gráfico.</li>
+        <li>Implementé mecánicas de juego, sistemas de colisión y física 2D.</li>
+        <li>Colaboré en equipo siguiendo un flujo de trabajo profesional con revisiones iterativas.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-dot" style="background:var(--accent2); box-shadow: 0 0 12px rgba(79,142,247,0.4);"></div>
+      <div class="tl-date">Ene 2020 – Dic 2024</div>
+      <div class="tl-header">
+        <div class="tl-role">Técnico IT Autónomo</div>
+        <div class="tl-company">Freelance · Barcelona</div>
+      </div>
+      <ul class="tl-bullets">
+        <li>Gestioné y resolví incidencias técnicas para <strong>más de 25 clientes particulares</strong>.</li>
+        <li>Instalé y configuré sistemas operativos Windows 10/11 y distribuciones Linux.</li>
+        <li>Configuré conexiones VPN y parámetros de red doméstica.</li>
+        <li>Elaboré presupuestos personalizados y asesoré a clientes.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-dot" style="background:var(--accent3); box-shadow: 0 0 12px rgba(247,168,79,0.4);"></div>
+      <div class="tl-date">Dic 2022 – Ene 2023</div>
+      <div class="tl-header">
+        <div class="tl-role">Auxiliar de Actividades Cívicas</div>
+        <div class="tl-company">Ajuntament de Molins de Rei</div>
+      </div>
+      <ul class="tl-bullets">
+        <li>Coordiné actividades de invierno para grupos de usuarios, gestionando incidencias in situ con rapidez y eficacia.</li>
+        <li>Trabajé en equipo asegurando el correcto desarrollo de las actividades y la satisfacción de los participantes.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-tag">proyectos</div>
+  <h2 class="section-title">Mi Trabajo</h2>
+
+  <div class="projects-grid">
+    <div class="project-card featured reveal">
+      <div class="project-visual">🎮</div>
+      <div>
+        <span class="project-type type-unity">Unity · C#</span>
+        <div class="project-title">3 Videojuegos 2D</div>
+        <p class="project-desc">Tres videojuegos completos desarrollados en Virtualdoing: un juego tipo Clicker, Flappy Bird y Space Invaders. Implementación de mecánicas, física 2D y sistemas de colisión.</p>
+        <div class="project-tech">
+          <span class="pt">Unity 2D</span>
+          <span class="pt">C#</span>
+          <span class="pt">Física</span>
+          <span class="pt">Colisión</span>
+          <span class="pt">UI</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-type type-python">Python</span>
+      <div class="project-title">USB Space Recoverer</div>
+      <p class="project-desc">Herramienta CLI en Python para detectar y liberar espacio oculto en dispositivos USB mediante la limpieza de archivos residuales.</p>
+      <div class="project-tech">
+        <span class="pt">Python</span>
+        <span class="pt">CLI</span>
+        <span class="pt">Filesystem</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-type type-python">Python</span>
+      <div class="project-title">YouTube Downloader</div>
+      <p class="project-desc">Script en Python para la descarga automatizada de contenido, con gestión de parámetros de calidad y formatos.</p>
+      <div class="project-tech">
+        <span class="pt">Python</span>
+        <span class="pt">yt-dlp</span>
+        <span class="pt">Automatización</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-tag">educación</div>
+  <h2 class="section-title">Formación</h2>
+
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-year">2022</div>
+      <div class="edu-degree">CFGS – Desarrollo de Aplicaciones Multiplataforma</div>
+      <div class="edu-school">Campus.NET</div>
+      <div class="edu-tags">
+        <span class="etag">Java</span>
+        <span class="etag">SQL</span>
+        <span class="etag">GUI</span>
+        <span class="etag">Apps Móviles</span>
+      </div>
+    </div>
+
+    <div class="edu-card reveal" style="transition-delay:.1s">
+      <div class="edu-year">2020</div>
+      <div class="edu-degree">CFGM – Sistemas Microinformáticos y Redes</div>
+      <div class="edu-school">Can Margarit, Corbera</div>
+      <div class="edu-tags">
+        <span class="etag">HW</span>
+        <span class="etag">Windows</span>
+        <span class="etag">Linux</span>
+        <span class="etag">Redes LAN</span>
+      </div>
+    </div>
+
+    <div class="edu-card reveal" style="transition-delay:.2s">
+      <div class="edu-year">Formación adicional</div>
+      <div class="edu-degree">Certificado en Programación Python</div>
+      <div class="edu-school">Curso especializado</div>
+      <div class="edu-tags">
+        <span class="etag">Python</span>
+        <span class="etag">Scripts</span>
+        <span class="etag">Automatización</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-tag" style="justify-content:center">contacto</div>
+  <h2 class="section-title reveal" style="text-align:center">¿Trabajamos juntos?</h2>
+  <p style="text-align:center; color:var(--muted); font-size:16px; margin-bottom:40px; max-width:480px; margin-left:auto; margin-right:auto;" class="reveal">
+    Estoy disponible para oportunidades en Soporte IT y Desarrollo Junior. ¡No dudes en contactarme!
+  </p>
+  <div style="text-align:center;" class="reveal">
+    <a href="mailto:antoni11122003@gmail.com" class="contact-email">
+      antoni11122003@gmail.com
+    </a>
+  </div>
+  <div class="contact-links reveal">
+    <a href="tel:+34722530335" class="clink">📞 +34 722 530 335</a>
+    <a href="#" class="clink">LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  <span>Antoni Lozano © 2025</span>
+  <span style="color:var(--border2)">Molins de Rei, Barcelona</span>
+  <span>Diseñado & Desarrollado por Claude</span>
+</footer>
+
+<script>
+// Cursor logic
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top  = my + 'px';
+});
+
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '20px';
+    cursor.style.height = '20px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '12px';
+    cursor.style.height = '12px';
+  });
+});
+
+// Scroll reveal logic
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+reveals.forEach(r => observer.observe(r));
+
+// Active nav link logic
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current
+      ? 'var(--accent)'
+      : '';
+  });
+});
+</script>
 </body>
 </html>
