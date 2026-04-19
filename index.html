@@ -81,6 +81,8 @@ nav {
   font-size: 14px;
   color: var(--accent);
   letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .nav-links {
@@ -595,9 +597,7 @@ section {
 /* ───────────────────────────────
    PROJECTS
 ──────────────────────────────── */
-#projects {
-  border-bottom: 1px solid var(--border);
-}
+#projects {}
 
 .projects-grid {
   display: grid;
@@ -666,6 +666,25 @@ section {
   padding: 3px 9px;
   border-radius: 4px;
 }
+
+.project-links {
+  display: flex;
+  gap: 12px;
+}
+
+.plink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+  cursor: none;
+}
+
+.plink:hover { color: var(--accent); }
 
 /* Featured project span 2 */
 .project-card.featured {
@@ -822,13 +841,28 @@ section {
 ──────────────────────────────── */
 footer {
   border-top: 1px solid var(--border);
-  padding: 28px 60px;
+  padding: 40px 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: var(--mono);
   font-size: 11px;
   color: var(--muted);
+  background: var(--bg);
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-right {
+  text-align: right;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
 }
 
 /* ───────────────────────────────
@@ -866,7 +900,8 @@ footer {
   .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
   .project-card.featured .project-visual { display: none; }
   .edu-grid { grid-template-columns: 1fr; }
-  footer { flex-direction: column; gap: 10px; text-align: center; }
+  footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 24px; }
+  .footer-right { text-align: center; }
   .hero-scroll { left: 24px; }
   body { cursor: auto; }
   .cursor, .cursor-ring { display: none; }
@@ -879,7 +914,7 @@ footer {
 <div class="cursor-ring" id="cursorRing"></div>
 
 <nav>
-  <div class="nav-logo">Portfolio de Antoni Lozano</div>
+  <div class="nav-logo">Antoni Lozano</div>
   <ul class="nav-links">
     <li><a href="#about">sobre mí</a></li>
     <li><a href="#skills">habilidades</a></li>
@@ -913,6 +948,7 @@ footer {
     <div class="hero-ctas">
       <a href="#projects" class="btn-primary">Ver Proyectos →</a>
       <a href="#contact" class="btn-secondary">Contactar</a>
+      <a href="https://github.com/Amaxi-12" target="_blank" class="btn-secondary">⌥ GitHub</a>
     </div>
   </div>
 
@@ -937,7 +973,7 @@ footer {
 
   <div class="hero-scroll">
     <div class="scroll-line"></div>
-    desliza para explorar
+    haz scroll para explorar
   </div>
 </section>
 
@@ -947,7 +983,7 @@ footer {
 
   <div class="about-grid reveal">
     <div class="about-text">
-      <p>Soy <strong>Antoni Lozano</strong>, técnico IT y desarrollador júnior de Molins de Rei (Barcelona). Combino habilidades técnicas en soporte de sistemas con experiencia práctica en desarrollo de software.</p>
+      <p>Soy <strong>Antoni Lozano</strong>, técnico IT y desarrollador junior de Molins de Rei (Barcelona). Combino habilidades técnicas en soporte de sistemas con experiencia práctica en desarrollo de software.</p>
       <p>Durante más de <strong>4 años como autónomo</strong>, he gestionado incidencias técnicas para clientes particulares, resolviendo el 90% el mismo día. He trabajado con sistemas Windows y Linux, redes locales, VPNs y diagnóstico de hardware.</p>
       <p>En el ámbito del desarrollo, he creado <strong>3 videojuegos con Unity y C#</strong> en un entorno profesional, y he programado herramientas de automatización en Python para resolver problemas reales.</p>
       <p>Busco un entorno donde crecer técnicamente y aportar valor real al equipo, tanto en soporte IT como en programación.</p>
@@ -972,8 +1008,18 @@ footer {
           <span class="info-val">Catalán · Español · Inglés B2</span>
         </div>
         <div class="info-row">
+          <span class="info-key">MOVILIDAD</span>
+          <span class="info-val">Carnet B (en curso)</span>
+        </div>
+        <div class="info-row">
           <span class="info-key">ESTADO</span>
           <span class="info-val accent">✦ Disponible</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">GITHUB</span>
+          <span class="info-val">
+            <a href="https://github.com/Amaxi-12" target="_blank" style="color:var(--accent); text-decoration:none; font-family:var(--mono); font-size:12px;">[ github.com/Amaxi-12 ]</a>
+          </span>
         </div>
       </div>
 
@@ -990,6 +1036,7 @@ footer {
   <h2 class="section-title">Stack Tecnológico</h2>
 
   <div class="skills-grid">
+
     <div class="skill-card reveal">
       <div class="skill-icon">🖥️</div>
       <div class="skill-card-title">Sistemas & Redes</div>
@@ -1005,11 +1052,12 @@ footer {
 
     <div class="skill-card reveal" style="transition-delay:.1s">
       <div class="skill-icon">🐍</div>
-      <div class="skill-card-title">Python</div>
+      <div class="skill-card-title">Python & Web</div>
       <div class="skill-tags">
-        <span class="stag blue">Scripting</span>
+        <span class="stag blue">HTML5</span>
+        <span class="stag blue">CSS3</span>
         <span class="stag blue">Automatización</span>
-        <span class="stag blue">Herramientas CLI</span>
+        <span class="stag blue">CLI tools</span>
         <span class="stag">yt-dlp</span>
         <span class="stag">Filesystem</span>
       </div>
@@ -1043,11 +1091,11 @@ footer {
       <div class="skill-icon">🛠️</div>
       <div class="skill-card-title">Soporte IT</div>
       <div class="skill-tags">
-        <span class="stag blue">Diagnóstico HW</span>
+        <span class="stag blue">Diagnosis HW</span>
         <span class="stag blue">Reparación</span>
         <span class="stag blue">Soporte remoto</span>
         <span class="stag">Presupuestos</span>
-        <span class="stag">Atención al cliente</span>
+        <span class="stag">Atención cliente</span>
       </div>
     </div>
 
@@ -1055,12 +1103,13 @@ footer {
       <div class="skill-icon">🗣️</div>
       <div class="skill-card-title">Soft Skills</div>
       <div class="skill-tags">
-        <span class="stag gold">Resolución de problemas</span>
+        <span class="stag gold">Resolución problemas</span>
         <span class="stag gold">Trabajo en equipo</span>
         <span class="stag gold">Proactividad</span>
         <span class="stag">Adaptabilidad</span>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1069,6 +1118,7 @@ footer {
   <h2 class="section-title">Trayectoria Profesional</h2>
 
   <div class="timeline">
+
     <div class="tl-item reveal">
       <div class="tl-dot"></div>
       <div class="tl-date">Ene 2024 – Jul 2024</div>
@@ -1077,9 +1127,9 @@ footer {
         <div class="tl-company">Virtualdoing · Barcelona · Prácticas</div>
       </div>
       <ul class="tl-bullets">
-        <li>Desarrollé <strong>3 videojuegos 2D en Unity (C#)</strong> —Clicker, Flappy Bird y Space Invaders— en colaboración con un diseñador gráfico.</li>
-        <li>Implementé mecánicas de juego, sistemas de colisión y física 2D.</li>
-        <li>Colaboré en equipo siguiendo un flujo de trabajo profesional con revisiones iterativas.</li>
+        <li>Desarrollé <strong>3 videojuegos 2D en Unity (C#)</strong> —Clicker, Flappy Bird y Space Invaders— en colaboración con un diseñador gráfico, completando los proyectos dentro del plazo establecido.</li>
+        <li>Implementé mecánicas de juego, sistemas de colisión y física 2D, optimizando el rendimiento en cada título.</li>
+        <li>Colaboré en equipo siguiendo un flujo de trabajo profesional con revisiones iterativas y control de versiones.</li>
       </ul>
     </div>
 
@@ -1091,10 +1141,10 @@ footer {
         <div class="tl-company">Freelance · Barcelona</div>
       </div>
       <ul class="tl-bullets">
-        <li>Gestioné y resolví incidencias técnicas para <strong>más de 25 clientes particulares</strong>.</li>
-        <li>Instalé y configuré sistemas operativos Windows 10/11 y distribuciones Linux.</li>
-        <li>Configuré conexiones VPN y parámetros de red doméstica.</li>
-        <li>Elaboré presupuestos personalizados y asesoré a clientes.</li>
+        <li>Gestioné y resolví incidencias técnicas para <strong>más de 25 clientes particulares</strong>, logrando una tasa de resolución el mismo día superior al 90%.</li>
+        <li>Instalé y configuré sistemas operativos Windows 10/11 y distribuciones Linux en entornos de usuario final.</li>
+        <li>Configuré conexiones VPN y parámetros de red doméstica, garantizando conectividad segura.</li>
+        <li>Elaboré presupuestos personalizados y asesoré a clientes sobre la solución más coste-eficiente.</li>
       </ul>
     </div>
 
@@ -1103,13 +1153,14 @@ footer {
       <div class="tl-date">Dic 2022 – Ene 2023</div>
       <div class="tl-header">
         <div class="tl-role">Auxiliar de Actividades Cívicas</div>
-        <div class="tl-company">Ajuntament de Molins de Rei</div>
+        <div class="tl-company">Ayuntamiento de Molins de Rei</div>
       </div>
       <ul class="tl-bullets">
         <li>Coordiné actividades de invierno para grupos de usuarios, gestionando incidencias in situ con rapidez y eficacia.</li>
         <li>Trabajé en equipo asegurando el correcto desarrollo de las actividades y la satisfacción de los participantes.</li>
       </ul>
     </div>
+
   </div>
 </section>
 
@@ -1118,18 +1169,19 @@ footer {
   <h2 class="section-title">Mi Trabajo</h2>
 
   <div class="projects-grid">
+
     <div class="project-card featured reveal">
       <div class="project-visual">🎮</div>
       <div>
         <span class="project-type type-unity">Unity · C#</span>
         <div class="project-title">3 Videojuegos 2D</div>
-        <p class="project-desc">Tres videojuegos completos desarrollados en Virtualdoing: un juego tipo Clicker, Flappy Bird y Space Invaders. Implementación de mecánicas, física 2D y sistemas de colisión.</p>
+        <p class="project-desc">Tres videojuegos completos desarrollados en Virtualdoing: un juego de tipo Clicker, Flappy Bird y Space Invaders. Implementación de mecánicas de juego, física 2D, sistemas de colisión y UI.</p>
         <div class="project-tech">
           <span class="pt">Unity 2D</span>
           <span class="pt">C#</span>
           <span class="pt">Física</span>
           <span class="pt">Colisión</span>
-          <span class="pt">UI</span>
+          <span class="pt">Game Loop</span>
         </div>
       </div>
     </div>
@@ -1137,24 +1189,48 @@ footer {
     <div class="project-card reveal">
       <span class="project-type type-python">Python</span>
       <div class="project-title">USB Space Recoverer</div>
-      <p class="project-desc">Herramienta CLI en Python para detectar y liberar espacio oculto en dispositivos USB mediante la limpieza de archivos residuales.</p>
+      <p class="project-desc">Herramienta CLI en Python para detectar y liberar espacio oculto en dispositivos USB. Automatiza un proceso que anteriormente se realizaba de forma manual.</p>
       <div class="project-tech">
         <span class="pt">Python</span>
         <span class="pt">CLI</span>
         <span class="pt">Filesystem</span>
+        <span class="pt">OS module</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Amaxi-12/USB-Space-Recoverer" target="_blank" class="plink">⌥ GitHub</a>
       </div>
     </div>
 
     <div class="project-card reveal">
       <span class="project-type type-python">Python</span>
-      <div class="project-title">YouTube Downloader</div>
-      <p class="project-desc">Script en Python para la descarga automatizada de contenido, con gestión de parámetros de calidad y formatos.</p>
+      <div class="project-title">AC_erraser</div>
+      <p class="project-desc">Herramienta diseñada para la limpieza y gestión de archivos temporales o residuales, optimizando el almacenamiento del sistema.</p>
+      <div class="project-tech">
+        <span class="pt">Python</span>
+        <span class="pt">Automatización</span>
+        <span class="pt">Limpieza</span>
+        <span class="pt">OS module</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Amaxi-12/AC_erraser" target="_blank" class="plink">⌥ GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-type type-python">Python</span>
+      <div class="project-title">YT-flow</div>
+      <p class="project-desc">Software con interfaz gráfica para la descarga eficiente de contenido de YouTube, con gestión de parámetros de calidad.</p>
       <div class="project-tech">
         <span class="pt">Python</span>
         <span class="pt">yt-dlp</span>
+        <span class="pt">CustomTkinter</span>
         <span class="pt">Automatización</span>
       </div>
+      <div class="project-links">
+        <a href="https://github.com/Amaxi-12/YT-flow" target="_blank" class="plink">⌥ GitHub</a>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -1163,6 +1239,7 @@ footer {
   <h2 class="section-title">Formación</h2>
 
   <div class="edu-grid">
+
     <div class="edu-card reveal">
       <div class="edu-year">2022</div>
       <div class="edu-degree">CFGS – Desarrollo de Aplicaciones Multiplataforma</div>
@@ -1197,6 +1274,7 @@ footer {
         <span class="etag">Automatización</span>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1213,18 +1291,23 @@ footer {
   </div>
   <div class="contact-links reveal">
     <a href="tel:+34722530335" class="clink">📞 +34 722 530 335</a>
-    <a href="#" class="clink">LinkedIn</a>
+    <a href="https://github.com/Amaxi-12" target="_blank" class="clink">⌥ GitHub</a>
+    <a href="https://www.linkedin.com/in/antonilozanocasado/" target="_blank" class="clink">in LinkedIn</a>
   </div>
 </section>
 
 <footer>
-  <span>Antoni Lozano © 2025</span>
-  <span style="color:var(--border2)">Molins de Rei, Barcelona</span>
-  <span>Diseñado & Desarrollado por Claude</span>
+  <div class="footer-left">
+    <span>Antoni Lozano Casado © 2025</span>
+    <span style="color:var(--border2)">Molins de Rei, Barcelona</span>
+  </div>
+  <div class="footer-right">
+    PORTFOLIO PROFESIONAL
+  </div>
 </footer>
 
 <script>
-// Cursor logic
+// Cursor
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
 let mx = 0, my = 0, rx = 0, ry = 0;
@@ -1255,7 +1338,7 @@ document.querySelectorAll('a, button').forEach(el => {
   });
 });
 
-// Scroll reveal logic
+// Scroll reveal
 const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -1267,7 +1350,7 @@ const observer = new IntersectionObserver((entries) => {
 
 reveals.forEach(r => observer.observe(r));
 
-// Active nav link logic
+// Active nav link
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
 
